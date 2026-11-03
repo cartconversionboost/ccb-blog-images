@@ -28,9 +28,10 @@ T[1]=("Send the first reminder 2 to 4 hours after they leave",
 T[2]=("Don't fire the first reminder within minutes",
  f'<div class="card col" style="width:400px"><span class="pill red">1 minute later</span><div class="big" style="margin-top:8px"><span class="x">&#10007;</span> Too soon</div><div class="sm">Still deciding. Feels pushy.</div></div>'
  f'<div class="card col" style="width:400px"><span class="pill teal">A few hours later</span><div class="big" style="margin-top:8px"><span class="ok">&#10003;</span> Well timed</div><div class="sm">They have really gone.</div></div>')
-bar=''.join(f'<div style="flex:1;height:70px;background:{"#0f7b6c" if 6<=h<21 else "#cfd6df"};border-right:2px solid #eef7f5"></div>' for h in range(24))
-T[3]=("Only send between 6am and 9pm",
- f'<div class="col" style="width:1000px"><div style="display:flex;width:100%;border-radius:12px;overflow:hidden">{bar}</div><div style="display:flex;justify-content:space-between;width:100%;font-size:20px;color:#5b6475"><span>Midnight</span><span>6am</span><span>Noon</span><span>9pm</span><span>Midnight</span></div><div class="sm" style="font-size:22px">Triggered overnight? It waits for the morning.</div></div>')
+bar=''.join(f'<div style="flex:1;height:70px;background:{"#0f7b6c" if 10<=h<21 else "#cfd6df"};border-right:2px solid #eef7f5"></div>' for h in range(24))
+lbl=lambda h,t: f'<span style="position:absolute;left:{h/24*100:.3f}%;transform:translateX(-50%);white-space:nowrap">{t}</span>'
+T[3]=("Only send between 10am and 9pm",
+ f'<div class="col" style="width:1000px"><div style="display:flex;width:100%;border-radius:12px;overflow:hidden">{bar}</div><div style="position:relative;width:100%;height:28px;font-size:20px;color:#5b6475">{lbl(0.6,"Midnight")}{lbl(10,"10am")}{lbl(12,"Noon")}{lbl(21,"9pm")}{lbl(23.4,"Midnight")}</div><div class="sm" style="font-size:22px">Triggered overnight? It waits until 10am.</div></div>')
 T[4]=("Set up a sequence for everyone who starts checkout and doesn't finish",
  step("Starts checkout")+A+step("Doesn't buy")+A+f'<div class="card col" style="min-width:300px;border:3px solid #0f7b6c"><div class="big">Abandon sequence</div><div class="sm">Email 1, 2, 3</div></div>')
 T[5]=("Stop the sequence the moment someone buys",
@@ -64,7 +65,7 @@ T[15]=("Watch the unsubscribe rate",
 fld=lambda t,k: f'<div style="border:2px solid #cfd6df;border-radius:8px;padding:10px 14px;font-size:19px;{"text-decoration:line-through;color:#a0a8b4;border-style:dashed" if k else ""}">{t}</div>'
 T[16]=("Fix the checkout as well as the emails",
  f'<div class="card" style="width:440px;display:flex;flex-direction:column;gap:10px"><div class="big" style="font-size:24px">Checkout</div>{fld("Name",0)}{fld("Email",0)}{fld("Phone number",1)}{fld("Company name",1)}{fld("Card details",0)}</div><div class="card col" style="width:360px"><div class="big">Cut what you don\'t need</div><div class="sm">Fewer fields, fewer reasons to leave</div></div>')
-slugs={1:"first-reminder-2-to-4-hours",2:"not-within-minutes",3:"send-6am-to-9pm",4:"sequence-for-everyone",5:"stop-when-they-buy",6:"ask-why-they-didnt-buy",7:"past-customers-shorter",8:"separate-membership-sequence",9:"hold-back-support-questions",10:"test-a-text-message",11:"one-text-not-a-series",12:"skip-matching-email",13:"start-on-preferred-channel",14:"find-the-drop-off-email",15:"watch-unsubscribes",16:"fix-the-checkout-too"}
+slugs={1:"first-reminder-2-to-4-hours",2:"not-within-minutes",3:"send-10am-to-9pm",4:"sequence-for-everyone",5:"stop-when-they-buy",6:"ask-why-they-didnt-buy",7:"past-customers-shorter",8:"separate-membership-sequence",9:"hold-back-support-questions",10:"test-a-text-message",11:"one-text-not-a-series",12:"skip-matching-email",13:"start-on-preferred-channel",14:"find-the-drop-off-email",15:"watch-unsubscribes",16:"fix-the-checkout-too"}
 meta={}
 for n,(t,b) in T.items():
     fn=f"b01-tip{n:02d}-{slugs[n]}"
